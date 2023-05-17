@@ -1,0 +1,10 @@
+rootProject.name = 'arus-pension-system'
+include ':domain'
+include ':application'
+include ':infrastructure'
+include ':application:application-context'
+include ':application:application-service'
+include ':infrastructure:endpoints'
+include ':infrastructure:postgresql-repository'
+include ':infrastructure:rabbitmq-message-broker'
+

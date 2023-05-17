@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+}
+
+group 'com.co.arus'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.7.11'
+}
+
+test {
+    useJUnitPlatform()
+}
