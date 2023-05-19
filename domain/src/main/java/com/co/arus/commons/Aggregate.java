@@ -8,6 +8,10 @@ public abstract class Aggregate <ID>{
     protected ID id;
     protected List<DomainEvent> domainEvents = new ArrayList<>();
 
+    public Aggregate(ID id) {
+        this.id = id;
+    }
+
     public ID getId() {
         return id;
     }
