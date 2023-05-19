@@ -41,5 +41,3 @@ v
 Fdomain/src/main/java/com/co/arus/causante/factories/IRentaFactory.java,6\2\62b44f50a0e2c523c82cddaab0107df42fa884ac
 u
 Edomain/src/main/java/com/co/arus/causante/factories/RentaFactory.java,a\5\a52cd120cc8d925af1306a8cd80e6703c0f1644d
-g
-7domain/src/main/java/com/co/arus/commons/Aggregate.java,1\4\14ce0376568d88aa1d52ddae3ddad41ba22b63b1
