@@ -50,7 +50,7 @@ public class Causante extends Aggregate<Documento> {
     }
 
     public void actualizarBeneficiario(IBeneficiarioFactory beneficiarioFactory){
-        this.beneficiario = beneficiarioFactory.construir();
+        this.beneficiario.actualizar(beneficiarioFactory);
     }
 
     public void eliminarBeneficiario(){
