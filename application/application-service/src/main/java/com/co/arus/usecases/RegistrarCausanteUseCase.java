@@ -11,6 +11,7 @@ import com.co.arus.mapper.Mapper;
 import com.co.arus.ports.input.RegistrarCausantePort;
 import com.co.arus.ports.output.CausanteRepositoryPort;
 import com.co.arus.ports.output.MessagePublisher;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public class RegistrarCausanteUseCase extends CommandUseCase<Documento> implements RegistrarCausantePort {
@@ -24,14 +25,19 @@ public class RegistrarCausanteUseCase extends CommandUseCase<Documento> implemen
 
     @Override
     public Mono<Void> ejecutar(CausanteCommand causanteCommand) {
-        return Mono.just(this.causanteDomainService
+        return Flux.just(this.causanteDomainService
                 .crearCausante(new Documento(causanteCommand.getTipoDocumento(), causanteCommand.getDocumento()),
                         new Nombre(causanteCommand.getNombres(), causanteCommand.getApellidos()),
                         causanteCommand.getFechaNacimiento(),
-                        causanteCommand.getGenero(),
-                        mapper.mapToFactory(causanteCommand.getBeneficiario()),
-                        mapper.mapToFactory(causanteCommand.getRenta())))
-                .doOnNext(causanteCreado -> this.messagePublisher.publish(causanteCreado).subscribe())
+                        causanteCommand.getGenero()).getCausante())
+                .map(causante -> this.causanteDomainService
+                        .asociarBeneficiario(causante, mapper.mapToFactory(causanteCommand.getBeneficiario()))
+                        .getCausante())
+                .map(causante -> this.causanteDomainService
+                        .crearRenta(causante, mapper.mapToFactory(causanteCommand.getRenta()))
+                        .getCausante())
+                .flatMap(causante -> Flux.fromIterable(causante.getDomainEvents()))
+                .doOnNext(event -> this.messagePublisher.publish(event).subscribe())
                 .then();
     }
 }

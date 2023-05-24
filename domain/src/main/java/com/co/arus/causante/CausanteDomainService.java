@@ -19,8 +19,8 @@ public class CausanteDomainService implements ICausanteDomainService{
     }
 
     @Override
-    public CausanteCreado crearCausante(Documento documento, Nombre nombre, Date fechaNacimiento, Genero genero, IBeneficiarioFactory beneficiarioFactory, IRentaFactory rentaFactory) {
-        Causante causante = new Causante(documento, nombre, fechaNacimiento, genero, beneficiarioFactory, rentaFactory);
+    public CausanteCreado crearCausante(Documento documento, Nombre nombre, Date fechaNacimiento, Genero genero) {
+        Causante causante = new Causante(documento, nombre, fechaNacimiento, genero);
         CausanteCreado causanteCreado = new CausanteCreado(causante);
         causanteCreado.getCausante().addDomainEvent(causanteCreado);
         return causanteCreado;
@@ -32,6 +32,14 @@ public class CausanteDomainService implements ICausanteDomainService{
         BeneficiarioAsociado beneficiarioAsociado = new BeneficiarioAsociado(causante);
         beneficiarioAsociado.getCausante().addDomainEvent(beneficiarioAsociado);
         return beneficiarioAsociado;
+    }
+
+    @Override
+    public RentaCreada crearRenta(Causante causante, IRentaFactory rentaFactory) {
+        causante.crearRenta(rentaFactory);
+        RentaCreada rentaCreada = new RentaCreada(causante);
+        rentaCreada.getCausante().addDomainEvent(rentaCreada);
+        return rentaCreada;
     }
 
     @Override
