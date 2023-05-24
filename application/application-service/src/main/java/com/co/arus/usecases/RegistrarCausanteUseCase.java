@@ -1,5 +1,6 @@
 package com.co.arus.usecases;
 
+import com.co.arus.causante.Causante;
 import com.co.arus.causante.ICausanteDomainService;
 import com.co.arus.causante.factories.BeneficiarioFactory;
 import com.co.arus.commands.CausanteCommand;
@@ -24,8 +25,8 @@ public class RegistrarCausanteUseCase extends CommandUseCase<Documento> implemen
     }
 
     @Override
-    public Mono<Void> ejecutar(CausanteCommand causanteCommand) {
-        return Flux.just(this.causanteDomainService
+    public Mono<Void> execute(CausanteCommand causanteCommand) {
+        return Mono.just(this.causanteDomainService
                 .crearCausante(new Documento(causanteCommand.getTipoDocumento(), causanteCommand.getDocumento()),
                         new Nombre(causanteCommand.getNombres(), causanteCommand.getApellidos()),
                         causanteCommand.getFechaNacimiento(),
@@ -36,7 +37,9 @@ public class RegistrarCausanteUseCase extends CommandUseCase<Documento> implemen
                 .map(causante -> this.causanteDomainService
                         .crearRenta(causante, mapper.mapToFactory(causanteCommand.getRenta()))
                         .getCausante())
-                .flatMap(causante -> Flux.fromIterable(causante.getDomainEvents()))
+                .map(Causante::getDomainEvents)
+                .flux()
+                .flatMap(Flux::fromIterable)
                 .doOnNext(event -> this.messagePublisher.publish(event).subscribe())
                 .then();
     }

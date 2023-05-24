@@ -7,19 +7,26 @@ import com.co.arus.commons.CommandUseCase;
 import com.co.arus.commons.EventStorage;
 import com.co.arus.commons.valueobjects.Documento;
 import com.co.arus.commons.valueobjects.Nombre;
-import com.co.arus.ports.input.ActualizarCausantePort;
+import com.co.arus.mapper.Mapper;
+import com.co.arus.ports.input.ActualizarBeneficiarioPort;
 import com.co.arus.ports.output.CausanteRepositoryPort;
 import com.co.arus.ports.output.MessagePublisher;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.stream.Collectors;
 
-public class ActualizarCausanteUseCase extends CommandUseCase<Documento> implements ActualizarCausantePort {
-    private ICausanteDomainService domainService;
+public class ActualizarBeneficiarioUseCase extends CommandUseCase<Documento> implements ActualizarBeneficiarioPort {
 
-    protected ActualizarCausanteUseCase(MessagePublisher messagePublisher, CausanteRepositoryPort eventStorage) {
+    private ICausanteDomainService domainService;
+    private Mapper mapper;
+
+    public ActualizarBeneficiarioUseCase(MessagePublisher messagePublisher, CausanteRepositoryPort eventStorage, ICausanteDomainService domainService, Mapper mapper) {
         super(messagePublisher, eventStorage);
+        this.domainService = domainService;
+        this.mapper = mapper;
     }
 
     @Override
@@ -28,8 +35,9 @@ public class ActualizarCausanteUseCase extends CommandUseCase<Documento> impleme
         return eventStorage.retrieve(documento)
                 .collect(Collectors.toList())
                 .map(domainEvents -> domainService.consultarCausante(documento, domainEvents))
-                .map(causante -> domainService.actualizarCausante(causante, new Nombre(causanteCommand.getNombres(), causanteCommand.getApellidos()),
-                         causanteCommand.getFechaNacimiento(), causanteCommand.getGenero()).getCausante())
+                .map(causante -> domainService
+                        .actualizarBeneficiario(causante, mapper.mapToFactory(causanteCommand.getBeneficiario()))
+                        .getCausante())
                 .map(Causante::getDomainEvents)
                 .flux()
                 .flatMap(Flux::fromIterable)
