@@ -3,26 +3,29 @@ package com.co.arus.commands;
 import com.co.arus.causante.enums.TipoBeneficiario;
 import com.co.arus.commons.enums.Genero;
 import com.co.arus.commons.enums.TipoDocumento;
-import com.co.arus.commons.valueobjects.Nombre;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Pattern;
 import java.util.Date;
 
 @Builder(toBuilder = true)
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BeneficiarioCommand {
-    private final TipoDocumento tipoDocumento;
+    private TipoDocumento tipoDocumento;
     @Pattern(regexp = "^[a-zA-Z0-9]{1,30}$", message = "El campo 'documento' debe ser alfanumérico y tener máximo 30 caracteres")
-    private final String documento;
+    private String documento;
     @Pattern(regexp = "^[^0-9]{1,50}$", message = "El campo 'nombres' no debe permitir números y la longitud máxima es de 50 caracteres")
-    private final String nombres;
+    private String nombres;
     @Pattern(regexp = "^[^0-9]{1,50}$", message = "El campo 'apellidos' no debe permitir números y la longitud máxima es de 50 caracteres")
-    private final String apellidos;
-    private final Date fechaNacimiento;
-    private final Genero genero;
-    private final TipoBeneficiario tipoBeneficiario;
-    private final boolean estudiante;
-    private final boolean dependiente;
+    private String apellidos;
+    private Date fechaNacimiento;
+    private Genero genero;
+    private TipoBeneficiario tipoBeneficiario;
+    private boolean estudiante;
+    private boolean dependiente;
 }

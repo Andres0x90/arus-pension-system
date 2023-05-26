@@ -35,9 +35,8 @@ public class ActualizarBeneficiarioUseCase extends CommandUseCase<Documento> imp
         return eventStorage.retrieve(documento)
                 .collect(Collectors.toList())
                 .map(domainEvents -> domainService.consultarCausante(documento, domainEvents))
-                .map(causante -> domainService
-                        .actualizarBeneficiario(causante, mapper.mapToFactory(causanteCommand.getBeneficiario()))
-                        .getCausante())
+                .doOnNext(causante -> domainService
+                        .actualizarBeneficiario(causante, mapper.mapToFactory(causanteCommand.getBeneficiario())))
                 .map(Causante::getDomainEvents)
                 .flux()
                 .flatMap(Flux::fromIterable)

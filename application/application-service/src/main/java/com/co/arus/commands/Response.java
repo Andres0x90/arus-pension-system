@@ -1,5 +1,6 @@
 package com.co.arus.commands;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 

@@ -66,12 +66,31 @@ public class Causante extends Aggregate<Documento> {
     @Override
     protected void applyDomainEvents(DomainEvent domainEvent) {
         CausanteDomainEvent causanteDomainEvent = (CausanteDomainEvent) domainEvent;
-        this.id = causanteDomainEvent.getCausante().id;
-        this.nombre = causanteDomainEvent.getCausante().nombre;
-        this.fechaNacimiento = causanteDomainEvent.getCausante().fechaNacimiento;
-        this.genero = causanteDomainEvent.getCausante().genero;
-        this.beneficiario = causanteDomainEvent.getCausante().beneficiario;
-        this.renta = causanteDomainEvent.getCausante().renta;
+        this.id = causanteDomainEvent.getDocumento();
+        this.nombre = causanteDomainEvent.getNombre();
+        this.fechaNacimiento = causanteDomainEvent.getFechaNacimiento();
+        this.genero = causanteDomainEvent.getGenero();
+        this.beneficiario = causanteDomainEvent.getBeneficiario();
+        this.renta = causanteDomainEvent.getRenta();
     }
 
+    public Nombre getNombre() {
+        return nombre;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public Beneficiario getBeneficiario() {
+        return beneficiario;
+    }
+
+    public Renta getRenta() {
+        return renta;
+    }
 }

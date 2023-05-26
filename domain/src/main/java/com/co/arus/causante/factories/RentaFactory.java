@@ -8,20 +8,17 @@ import java.util.Date;
 
 public class RentaFactory implements IRentaFactory {
 
-    private RentaId id;
     private Date fechaSolicitud;
     private Salario salario;
     private Integer mesesCotizando;
 
+    public static RentaFactory builder(){
+        return new RentaFactory();
+    }
 
     @Override
     public Renta construir() {
         return new Renta(fechaSolicitud, salario, mesesCotizando);
-    }
-
-    public RentaFactory id(RentaId val) {
-        id = val;
-        return this;
     }
 
     public RentaFactory fechaSolicitud(Date val) {

@@ -28,8 +28,8 @@ public class ActualizarCausanteUseCase extends CommandUseCase<Documento> impleme
         return eventStorage.retrieve(documento)
                 .collect(Collectors.toList())
                 .map(domainEvents -> domainService.consultarCausante(documento, domainEvents))
-                .map(causante -> domainService.actualizarCausante(causante, new Nombre(causanteCommand.getNombres(), causanteCommand.getApellidos()),
-                         causanteCommand.getFechaNacimiento(), causanteCommand.getGenero()).getCausante())
+                .doOnNext(causante -> domainService.actualizarCausante(causante, new Nombre(causanteCommand.getNombres(), causanteCommand.getApellidos()),
+                         causanteCommand.getFechaNacimiento(), causanteCommand.getGenero()))
                 .map(Causante::getDomainEvents)
                 .flux()
                 .flatMap(Flux::fromIterable)

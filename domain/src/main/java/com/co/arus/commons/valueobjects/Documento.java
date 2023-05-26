@@ -5,7 +5,11 @@ import com.co.arus.commons.enums.TipoDocumento;
 
 
 public class Documento extends BaseId<String> {
-    private final TipoDocumento tipoDocumento;
+    private TipoDocumento tipoDocumento;
+
+    public Documento() {
+    }
+
     public Documento(TipoDocumento tipoDocumento, String id) {
         super(id);
         this.tipoDocumento = tipoDocumento;

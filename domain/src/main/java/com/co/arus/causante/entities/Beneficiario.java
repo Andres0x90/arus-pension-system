@@ -17,6 +17,9 @@ public class Beneficiario extends Entity<Documento> {
     private boolean estudiante;
     private boolean dependiente;
 
+    public Beneficiario() {
+    }
+
     public Beneficiario(Documento documento, Nombre nombre, Date fechaNacimiento,
                         Genero genero, TipoBeneficiario tipoBeneficiario,
                         boolean estudiante, boolean dependiente) {
@@ -39,19 +42,19 @@ public class Beneficiario extends Entity<Documento> {
         this.dependiente = beneficiario.dependiente;
     }
 
-    public Nombre nombre() {
+    public Nombre getNombre() {
         return nombre;
     }
 
-    public Date fechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public Genero genero() {
+    public Genero getGenero() {
         return genero;
     }
 
-    public TipoBeneficiario tipoBeneficiario() {
+    public TipoBeneficiario getTipoBeneficiario() {
         return tipoBeneficiario;
     }
 

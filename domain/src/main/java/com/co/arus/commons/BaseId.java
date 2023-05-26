@@ -3,13 +3,16 @@ package com.co.arus.commons;
 import java.util.Objects;
 
 public abstract class BaseId<T> {
-    protected final T id;
+    protected  T id;
+
+    public BaseId() {
+    }
 
     public BaseId(T id) {
         this.id = id;
     }
 
-    public T getValue() {
+    public T getId() {
         return id;
     }
 

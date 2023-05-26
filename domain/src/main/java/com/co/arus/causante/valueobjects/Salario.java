@@ -1,7 +1,10 @@
 package com.co.arus.causante.valueobjects;
 
 public class Salario {
-    private final Integer value;
+    private  Integer value;
+
+    public Salario() {
+    }
 
     public Salario(Integer value) {
         this.value = value;

@@ -5,6 +5,9 @@ import java.util.Objects;
 public abstract  class Entity<ID> {
     protected ID id;
 
+    public Entity() {
+    }
+
     public Entity(ID id) {
         this.id = id;
     }

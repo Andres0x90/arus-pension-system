@@ -1,8 +1,11 @@
 package com.co.arus.commons.valueobjects;
 
 public class Nombre {
-    private final String nombres;
-    private final String apellidos;
+    private  String nombres;
+    private  String apellidos;
+
+    public Nombre() {
+    }
 
     public Nombre(String nombres, String apellidos) {
         this.nombres = nombres;

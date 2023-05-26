@@ -11,6 +11,8 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux:2.7.11'
+    implementation 'org.reactivecommons:async-commons-starter:0.6.0-beta'
+    implementation project(":domain")
     implementation project(":application:application-service")
     implementation project(":infrastructure:endpoints")
     implementation project(":infrastructure:postgresql-repository")

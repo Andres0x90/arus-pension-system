@@ -7,6 +7,9 @@ import java.util.UUID;
 
 public class RentaId extends BaseId<UUID> {
 
+    public RentaId() {
+    }
+
     public RentaId(UUID id) {
         super(id);
     }
