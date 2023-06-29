@@ -12,7 +12,7 @@ import com.co.arus.commons.valueobjects.Nombre;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Mapper implements com.co.arus.mapper.Mapper
+public class IMapper implements com.co.arus.mapper.IMapper
  {
     @Override
     public IBeneficiarioFactory mapToFactory(BeneficiarioCommand beneficiarioCommand) {

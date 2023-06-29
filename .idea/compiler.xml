@@ -9,6 +9,7 @@
         </processorPath>
         <module name="arus-pension-system.infrastructure.rabbitmq-message-broker.main" />
         <module name="arus-pension-system.application.application-service.main" />
+        <module name="arus-pension-system.infrastructure.postgresql-repository.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11" />

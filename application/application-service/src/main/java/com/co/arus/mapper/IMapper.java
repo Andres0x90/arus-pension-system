@@ -5,7 +5,7 @@ import com.co.arus.causante.factories.IRentaFactory;
 import com.co.arus.commands.BeneficiarioCommand;
 import com.co.arus.commands.RentaCommand;
 
-public interface Mapper {
+public interface IMapper {
     IBeneficiarioFactory mapToFactory(BeneficiarioCommand beneficiarioCommand);
     IRentaFactory mapToFactory(RentaCommand rentaCommand);
 }

@@ -1,7 +1,7 @@
 package com.co.arus.configuration;
 
 import com.co.arus.causante.CausanteDomainService;
-import com.co.arus.mapper.Mapper;
+import com.co.arus.mapper.IMapper;
 import com.co.arus.ports.input.RegistrarCausantePort;
 import com.co.arus.ports.output.CausanteRepositoryPort;
 import com.co.arus.ports.output.MessagePublisher;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeanConfiguration {
     @Bean
-    RegistrarCausantePort registrarCausantePort(MessagePublisher messagePublisher, CausanteRepositoryPort eventStorage, Mapper mapper){
-        return new RegistrarCausanteUseCase(messagePublisher, eventStorage, new CausanteDomainService(), mapper);
+    RegistrarCausantePort registrarCausantePort(MessagePublisher messagePublisher, CausanteRepositoryPort eventStorage, IMapper IMapper){
+        return new RegistrarCausanteUseCase(messagePublisher, eventStorage, new CausanteDomainService(), IMapper);
     }
 }
