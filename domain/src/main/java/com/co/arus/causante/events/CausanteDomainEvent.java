@@ -31,6 +31,16 @@ public class CausanteDomainEvent extends DomainEvent {
         this.renta = renta;
     }
 
+    public CausanteDomainEvent(String id, String type, Date date, Documento documento, Nombre nombre, Date fechaNacimiento, Genero genero, Beneficiario beneficiario, Renta renta) {
+        super(id, type, date);
+        this.documento = documento;
+        this.nombre = nombre;
+        this.fechaNacimiento = fechaNacimiento;
+        this.genero = genero;
+        this.beneficiario = beneficiario;
+        this.renta = renta;
+    }
+
     public Documento getDocumento() {
         return documento;
     }

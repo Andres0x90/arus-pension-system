@@ -2,7 +2,12 @@ package com.co.arus.mapper;
 
 import com.co.arus.causante.entities.Beneficiario;
 import com.co.arus.causante.entities.Renta;
+import com.co.arus.causante.enums.TipoBeneficiario;
 import com.co.arus.causante.events.CausanteDomainEvent;
+import com.co.arus.causante.valueobjects.RentaId;
+import com.co.arus.commons.enums.Genero;
+import com.co.arus.commons.enums.TipoDocumento;
+import com.co.arus.commons.valueobjects.Documento;
 import com.co.arus.data.BeneficiarioData;
 import com.co.arus.data.CausanteEventData;
 import com.co.arus.data.RentaData;
@@ -14,6 +19,7 @@ public class Mapper {
     public static CausanteEventData toData(CausanteDomainEvent causanteDomainEvent){
         return CausanteEventData.builder()
                 .eventId(UUID.randomUUID().toString())
+                .eventDate(causanteDomainEvent.getDate())
                 .type(causanteDomainEvent.getType())
                 .tipoDocumento(causanteDomainEvent.getDocumento().getTipoDocumento().name())
                 .documento(causanteDomainEvent.getDocumento().getId())
@@ -26,7 +32,12 @@ public class Mapper {
     }
 
     public static CausanteDomainEvent toEntity(CausanteEventData causanteEventData){
-        return new CausanteDomainEvent("");
+        return new CausanteDomainEvent(causanteEventData.getEventId(), causanteEventData.getType(),
+                causanteEventData.getEventDate(),
+                new Documento(TipoDocumento.valueOf(causanteEventData.getTipoDocumento()), causanteEventData.getDocumento()),
+                causanteEventData.getNombre(), causanteEventData.getFechaNacimiento(), Genero.valueOf(causanteEventData.getGenero()),
+                causanteEventData.getBeneficiario() != null?toEntity(causanteEventData.getBeneficiario()):null,
+                causanteEventData.getRenta() != null?toEntity(causanteEventData.getRenta()):null);
     }
 
     public static BeneficiarioData toData(Beneficiario beneficiario){
@@ -42,6 +53,12 @@ public class Mapper {
                 .build();
     }
 
+    public static Beneficiario toEntity(BeneficiarioData beneficiarioData){
+        return new Beneficiario(new Documento(TipoDocumento.valueOf(beneficiarioData.getTipoDocumento()), beneficiarioData.getDocumento())
+        , beneficiarioData.getNombre(), beneficiarioData.getFechaNacimiento(), Genero.valueOf(beneficiarioData.getGenero())
+        , TipoBeneficiario.valueOf(beneficiarioData.getTipoBeneficiario()), beneficiarioData.isEstudiante(), beneficiarioData.isDependiente());
+    }
+
     public static RentaData toData(Renta renta){
         return RentaData.builder()
                 .id(renta.getId().getId().toString())
@@ -49,5 +66,10 @@ public class Mapper {
                 .salario(renta.getSalario())
                 .mesesCotizando(renta.getMesesCotizando())
                 .build();
+    }
+
+    public static Renta toEntity(RentaData rentaData){
+        return new Renta(new RentaId(UUID.fromString(rentaData.getId())), rentaData.getFechaSolicitud(), rentaData.getSalario(),
+                rentaData.getMesesCotizando());
     }
 }

@@ -28,6 +28,7 @@ public class CausanteEventRepository implements CausanteRepositoryPort {
 
     @Override
     public Flux<DomainEvent> retrieve(Documento documento) {
-        return null;
+        return Flux.fromIterable(causanteEventCrudRepository.findByDocumento(documento.getId()))
+                .map(Mapper::toEntity);
     }
 }

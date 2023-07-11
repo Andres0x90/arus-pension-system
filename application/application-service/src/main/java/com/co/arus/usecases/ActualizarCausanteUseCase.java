@@ -18,14 +18,15 @@ import java.util.stream.Collectors;
 public class ActualizarCausanteUseCase extends CommandUseCase<Documento> implements ActualizarCausantePort {
     private ICausanteDomainService domainService;
 
-    protected ActualizarCausanteUseCase(MessagePublisher messagePublisher, CausanteRepositoryPort eventStorage) {
+    public ActualizarCausanteUseCase(MessagePublisher messagePublisher, CausanteRepositoryPort eventStorage, ICausanteDomainService causanteDomainService) {
         super(messagePublisher, eventStorage);
+        this.domainService = causanteDomainService;
     }
 
     @Override
     public Mono<Void> execute(CausanteCommand causanteCommand) {
         Documento documento = new Documento(causanteCommand.getTipoDocumento(), causanteCommand.getDocumento());
-        return eventStorage.retrieve(documento)
+        return this.retrieveEvents(documento)
                 .collect(Collectors.toList())
                 .map(domainEvents -> domainService.consultarCausante(documento, domainEvents))
                 .doOnNext(causante -> domainService.actualizarCausante(causante, new Nombre(causanteCommand.getNombres(), causanteCommand.getApellidos()),
@@ -33,7 +34,7 @@ public class ActualizarCausanteUseCase extends CommandUseCase<Documento> impleme
                 .map(Causante::getDomainEvents)
                 .flux()
                 .flatMap(Flux::fromIterable)
-                .doOnNext(domainEvent -> this.messagePublisher.publish(domainEvent).subscribe())
+                .doOnNext(domainEvent -> this.publishEvents(domainEvent).subscribe())
                 .then();
     }
 }

@@ -1,6 +1,2 @@
 
-S	java:S106"9Replace this use of System.out or System.err by a logger.(›«ŸÓþÿÿÿÿ
-^
-java:S1128"CRemove this unused import 'org.reactivecommons.api.domain.Command'.(ƒæ’åùÿÿÿÿ
-h
-java:S1128"MRemove this unused import 'org.reactivecommons.async.api.DirectAsyncGateway'.(¾Íƒÿøÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(›«ŸÓþÿÿÿÿ

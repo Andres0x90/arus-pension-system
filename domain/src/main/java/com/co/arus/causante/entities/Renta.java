@@ -22,6 +22,13 @@ public class Renta extends Entity<RentaId> {
         this.mesesCotizando = mesesCotizando;
     }
 
+    public Renta(RentaId rentaId, Date fechaSolicitud, Salario salario, Integer mesesCotizando) {
+        super(rentaId);
+        this.fechaSolicitud = fechaSolicitud;
+        this.salario = salario;
+        this.mesesCotizando = mesesCotizando;
+    }
+
     public Date getFechaSolicitud() {
         return fechaSolicitud;
     }

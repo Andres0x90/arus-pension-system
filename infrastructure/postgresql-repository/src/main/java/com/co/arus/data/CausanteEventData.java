@@ -1,7 +1,5 @@
 package com.co.arus.data;
 
-import com.co.arus.commons.enums.Genero;
-import com.co.arus.commons.valueobjects.Documento;
 import com.co.arus.commons.valueobjects.Nombre;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,20 +18,18 @@ import java.util.Date;
 public class CausanteEventData {
     @Id
     private String eventId;
+    private Date eventDate;
     private String type;
-    @Column(name = "tipo_documento")
     private String tipoDocumento;
-    @Column(name = "documento")
     private String documento;
     @Embedded
     private Nombre nombre;
-    @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
     private String genero;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "beneficiario")
     private BeneficiarioData beneficiario;
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "renta_id")
     private RentaData renta;
 }

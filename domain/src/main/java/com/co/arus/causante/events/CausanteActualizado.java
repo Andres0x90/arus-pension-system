@@ -13,6 +13,10 @@ public class CausanteActualizado extends CausanteDomainEvent {
 
     public static final String KEY = "com.co.arus.causante.actualizado";
 
+    public CausanteActualizado() {
+        super(KEY);
+    }
+
     public CausanteActualizado(Documento documento, Nombre nombre, Date fechaNacimiento, Genero genero, Beneficiario beneficiario, Renta renta) {
         super(KEY, documento, nombre, fechaNacimiento, genero, beneficiario, renta);
     }
